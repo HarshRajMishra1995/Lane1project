@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.PORT;
+const port = process.env.PORT||3000;
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
