@@ -85,7 +85,8 @@ app.post('/response', urlencodedParser, (req, res) => {
             netPay: netpay,
             PF: PF,
             D_O_J: D_O_J,
-            ProfessionalTax: ProfessionalTax
+            ProfessionalTax: ProfessionalTax,
+            host:process.env.URL
         },
     ];
     let pdfFilePath = `./output/Payslip-${empid}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
