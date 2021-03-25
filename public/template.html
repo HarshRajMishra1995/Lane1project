@@ -35,8 +35,10 @@
     <div class="container">
         <div class="d-flex flex-column p-3">
             <div>
+                {{#each users}}
                 <img src="{{this.host}}/banner-with-logo.png" style="width:320px;height:50px;margin-left:110px">
             </div>
+            {{/each}}
             <div class="p-2" style="font-family: 'Montserrat', sans-serif;font-size:10px;font-weight:600;margin-left:90px;">
                 #1B,WeWork
                 Financial District,Nanakramguda,
