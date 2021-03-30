@@ -95,7 +95,8 @@ app.post('/response', urlencodedParser, (req, res) => {
             D_O_J,
             ProfessionalTax,
             accountNo,
-            providentfundNo
+            providentfundNo,
+            host:process.env.URL
         }
     ];
     let pdfFilePath = `./output/Payslip-${employeeID}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
