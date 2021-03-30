@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.PORT||3000;
+const port = process.env.PORT;
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
@@ -44,22 +44,21 @@ app.post('/response', urlencodedParser, (req, res) => {
     const HRA = payment.hra(salary);
     const specialAllowance = payment.special(salary) ;
     const netPay = parseFloat(basicPay) + parseFloat(DA) + parseFloat(HRA) + parseFloat(specialAllowance);
-    var x=netPay;
-    x=x.toString();
-    var lastThree = x.substring(x.length-3);
-    var otherNumbers = x.substring(0,x.length-3);
-    if(otherNumbers != '')
-        lastThree = ',' + lastThree;
-    var result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    //Let is used for re-assiging its value.
     let PF = pf;
-    //Applying checks on PF checkbox.
+
+    //Logic for formatting payment details
+    const newbasicPay=payment.amountdata(basicPay);
+    const newDA=payment.amountdata(DA);
+    const newHRA=payment.amountdata(HRA);
+    const newspecialAllowance=payment.amountdata(specialAllowance);
+    const newnetPay=payment.amountdata(netPay)
+
+    //Applying checks for Provident Fund checbox
     if (PF == null) {
 
         PF = 0;
     }
     else {
-
         PF = req.body.pf;
     }
 
@@ -87,17 +86,16 @@ app.post('/response', urlencodedParser, (req, res) => {
             Designation,
             month: newDate,
             salary,
-            basicPay,
-            DA,
-            HRA,
-            specialAllowance,
-            netPay:result,
+            basicPay:newbasicPay,
+            DA:newDA,
+            HRA:newHRA,
+            specialAllowance:newspecialAllowance,
+            netPay:newnetPay,
             PF,
             D_O_J,
             ProfessionalTax,
             accountNo,
-            providentfundNo,
-            host:process.env.URL
+            providentfundNo
         }
     ];
     let pdfFilePath = `./output/Payslip-${employeeID}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
