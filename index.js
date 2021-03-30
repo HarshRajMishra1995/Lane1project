@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.PORT;
+const port = process.env.PORT||3000;
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
@@ -51,7 +51,6 @@ app.post('/response', urlencodedParser, (req, res) => {
     if(otherNumbers != '')
         lastThree = ',' + lastThree;
     var result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    console.log("total is"+(result));
     //Let is used for re-assiging its value.
     let PF = pf;
     //Applying checks on PF checkbox.
