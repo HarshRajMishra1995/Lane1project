@@ -2,7 +2,7 @@ const express = require('express');
 const app = express()
 const dotenv = require('dotenv');
 dotenv.config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
@@ -13,9 +13,9 @@ const bodyparser = require('body-parser')
 app.use(bodyparser.json())
 const urlencodedParser = bodyparser.urlencoded({ extended: false })
 
-let payment = require('./paymentlogic');
-
 app.use(express.static('public'))
+
+const payment=require('./paymentlogic')
 
 const options = {
     format: "A4",
@@ -33,19 +33,27 @@ app.get('/form', (req, res) => {
 
 //api to get response
 app.post('/response', urlencodedParser, (req, res) => {
-    let { empname, empid, month, salary, Designation, pf, D_O_J, professionalTax } = req.body;
+    let { employeeName,employeeID, month, salary, Designation, pf, D_O_J, professionalTax,accountNo,providentfundNo } = req.body;
     if (!req.body) {
-        res.send("missing details!!!")
+        res.send("missing details")
     }
 
     //Logic for salary details in payslip
     const basicPay = payment.basic(salary);
     const DA = payment.da(salary);
     const HRA = payment.hra(salary);
-    const specialAllowance = payment.special(salary);
-    const netpay = parseFloat(basicPay) + parseFloat(DA) + parseFloat(HRA) + parseFloat(specialAllowance);
-
-    let PF = pf;//Let is used for re-assiging its value.
+    const specialAllowance = payment.special(salary) ;
+    const netPay = parseFloat(basicPay) + parseFloat(DA) + parseFloat(HRA) + parseFloat(specialAllowance);
+    var x=netPay;
+    x=x.toString();
+    var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    console.log("total is"+(result));
+    //Let is used for re-assiging its value.
+    let PF = pf;
     //Applying checks on PF checkbox.
     if (PF == null) {
 
@@ -75,24 +83,24 @@ app.post('/response', urlencodedParser, (req, res) => {
 
     let users = [
         {
-            name: empname,
-            empid: empid,
-            Designation: Designation,
+            employeeName,
+            employeeID,
+            Designation,
             month: newDate,
-            salary: salary,
-            basepay: basicPay,
-            DA: DA,
-            HRA: HRA,
-            specialAllowance: specialAllowance,
-            netPay: netpay,
-            PF: PF,
-            D_O_J: D_O_J,
-            ProfessionalTax: ProfessionalTax,
-            host: process.env.URL
-        },
+            salary,
+            basicPay,
+            DA,
+            HRA,
+            specialAllowance,
+            netPay:result,
+            PF,
+            D_O_J,
+            ProfessionalTax,
+            accountNo,
+            providentfundNo
+        }
     ];
-
-    let pdfFilePath = `./output/Payslip-${empid}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
+    let pdfFilePath = `./output/Payslip-${employeeID}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
     // var tempFilePath=`/Users/tjs3/Documents/pdf_generator/output/Payslip-${empid}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
     let document = {
         html: html,
