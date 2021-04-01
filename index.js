@@ -33,7 +33,7 @@ app.get('/form', (req, res) => {
 
 //api to get response
 app.post('/response', urlencodedParser, (req, res) => {
-    let { employeeName,employeeID, month, salary, Designation, pf, D_O_J, professionalTax,accountNo,providentfundNo } = req.body;
+    let { employeeName,employeeID, month, salary, Designation, pf, D_O_J, professionalTax,accountNo,providentfundNo,TDS } = req.body;
     if (!req.body) {
         res.send("missing details")
     }
@@ -43,7 +43,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     const DA = payment.da(salary);
     const HRA = payment.hra(salary);
     const specialAllowance = payment.special(salary) ;
-    const netPay = parseFloat(basicPay) + parseFloat(DA) + parseFloat(HRA) + parseFloat(specialAllowance);
+    const calculatedEarning = parseFloat(basicPay) + parseFloat(DA) + parseFloat(HRA) + parseFloat(specialAllowance);
     let PF = pf;
 
     //Logic for formatting payment details
@@ -51,16 +51,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     const newDA=payment.amountdata(DA);
     const newHRA=payment.amountdata(HRA);
     const newspecialAllowance=payment.amountdata(specialAllowance);
-    const newnetPay=payment.amountdata(netPay)
-
-    //Applying checks for Provident Fund checbox
-    if (PF == null) {
-
-        PF = 0;
-    }
-    else {
-        PF = req.body.pf;
-    }
+    const newtotalEarning=payment.amountdata(calculatedEarning)
 
     //Formating salary month
     let monthDate = month;
@@ -69,17 +60,19 @@ app.post('/response', urlencodedParser, (req, res) => {
     let getMonth = newmonthDate.toLocaleString('Default', { month: 'long' });
     let newDate = getMonth + "," + monthYear;
 
+    let providentFund=PF==null?0:250;
     let ProfessionalTax = professionalTax;
-    //Applying checks on ProfessionalTax checkbox.
-    if (ProfessionalTax == null) {
-        //console.log('empty')
-        ProfessionalTax = 0
-    }
-    else {
-        ProfessionalTax = req.body.professionalTax;
-    }
+    let newprofessionalTax=ProfessionalTax==null?0:250
 
-    let users = [
+    //Logic for total deductions and netPayment
+    let newTDS=Number(TDS)
+    let deductions=newTDS+providentFund+newprofessionalTax
+    const newtotalDeductions=payment.amountdata(deductions);
+    const totalPay=calculatedEarning-deductions;
+    const netPay=payment.amountdata(totalPay)
+    newTDS=payment.amountdata(newTDS)
+     console.log(newTDS)
+    let users =[
         {
             employeeName,
             employeeID,
@@ -90,12 +83,15 @@ app.post('/response', urlencodedParser, (req, res) => {
             DA:newDA,
             HRA:newHRA,
             specialAllowance:newspecialAllowance,
-            netPay:newnetPay,
-            PF,
+            totalEarning:newtotalEarning,
+            PF:providentFund,
             D_O_J,
-            ProfessionalTax,
+            ProfessionalTax:newprofessionalTax,
             accountNo,
             providentfundNo,
+            newTDS,
+            totalDeductions:newtotalDeductions,
+            netPay,
             host:process.env.URL
         }
     ];
@@ -104,7 +100,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     let document = {
         html: html,
         data: {
-            users: users
+            users
         },
         path: pdfFilePath,
         type: ""
