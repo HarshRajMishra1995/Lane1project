@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +20,8 @@
     </nav>
 
     <div class="row">
-        <div class="offset-lg-2">
-            <h1 class="text-secondary" >Payslip Form</h1>
+        <div class="offset-lg-2 offset-xs-2">
+            <h1 class="text-secondary">Payslip Form</h1>
         </div>
     </div>
 
@@ -77,22 +78,28 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-lg-6">
+                        <div class="form-group">
+                            <label class="text-secondary" for="TDS">TDS</label>
+                            <input type="text" class="form-control" id="TDS" name="TDS">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-lg-6">
                         <div class="form-group form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="pf" name="pf" value="250">
+                            <input class="form-check-input" type="checkbox" id="pf" name="pf">
                             <label class="form-check-label" for="pf">Provident Fund</label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-lg-6">
                         <div class="form-group form-check-inline mb-2">
-                            <input class="form-check-input" type="checkbox" id="professionalTax" name="professionalTax"
-                                value="250">
+                            <input class="form-check-input" type="checkbox" id="professionalTax" name="professionalTax">
                             <label class="form-check-label" for="professionalTax">Professional Tax</label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary col-lg-12">Submit</button>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+    </div>
 </body>
+
 </html>
