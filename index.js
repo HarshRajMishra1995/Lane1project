@@ -58,7 +58,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     let newmonthDate = new Date(monthDate)
     let monthYear = newmonthDate.getFullYear()
     let getMonth = newmonthDate.toLocaleString('Default', { month: 'long' });
-    let newDate = getMonth + "," + monthYear;
+    let newDate = getMonth + ", " + monthYear;
 
     let providentFund=PF==null?0:250;
     let ProfessionalTax = professionalTax;
@@ -71,7 +71,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     const totalPay=calculatedEarning-deductions;
     const netPay=payment.amountdata(totalPay)
     newTDS=payment.amountdata(newTDS)
-     console.log(newTDS)
+
     let users =[
         {
             employeeName,
