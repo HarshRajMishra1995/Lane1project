@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+   
 </head>
 <style>
     #EmployerSign {
@@ -40,7 +41,7 @@
     #Address {
         font-size: 10px;
         font-weight: 600;
-        margin-left: 90px;
+        margin-left: 80px;
     }
 
     #payslipDiv {
@@ -86,13 +87,11 @@
 <body>
     <div class="container">
         <div class="d-flex flex-column p-3">
-            {{#each users}}
             <div>
-                <img id="Logo" src="{{this.host}}/banner-with-logo.png">
+                <img id="Logo" src="http://localhost:3000/banner-with-logo.png">
             </div>
-            {{/each}}
             <div id="Address" class="p-2 textfont">
-                #1B,WeWork
+                #01B,102, WeWork
                 Financial District,Nanakramguda,
                 Hyderabad,500032
             </div>
@@ -104,7 +103,7 @@
     {{/each}}
 
     <!--This div contains payslip details-->
-    <div class=" border border-dark rounded" id="payslipDiv">
+    <div class=" border border-dark rounded" id="payslipDiv" onabort="myFunction()">
         <table style="width:518px;">
             {{#each users}}
             <thead>
