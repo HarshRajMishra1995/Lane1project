@@ -90,7 +90,7 @@
     <div class="container">
         <div class="d-flex flex-column p-3">
             <div>
-                <img class="Logo" src="http://localhost:3000/banner-with-logo.png">
+                <img class="Logo" src="{{user.host}}/banner-with-logo.png">
             </div>
             <div class="Address p-2 textfont" >
                 #01B 102, WeWork
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <p class="monthDisplay textfont">Payslip for the period of {{users.month}}</p>
+    <p class="monthDisplay textfont">Payslip for the period of {{user.month}}</p>
 
     <!--This div contains payslip details-->
     <div class=" border border-dark rounded payslipDiv">
@@ -110,11 +110,11 @@
                     <td class="float-left p-1 textfont" >
                         EmployeeID
                     </td>
-                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont"> {{users.employeeID}}</td>
+                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont"> {{user.employeeID}}</td>
                     <td class="float-left p-1 textfont" >
                         Name
                     </td>
-                    <td class="text-right p-1 font-weight-bold tdtextfont">{{users.employeeName}}</td>
+                    <td class="text-right p-1 font-weight-bold tdtextfont">{{user.employeeName}}</td>
                 </tr>
                 <tr class="tableRow" >
                     <td class="float-left p-1 textfont">
@@ -124,23 +124,23 @@
                     <td class="float-left p-1 textfont">
                         Designation
                     </td>
-                    <td class="text-right p-1 font-weight-bold tdtextfont">{{users.Designation}}</td>
+                    <td class="text-right p-1 font-weight-bold tdtextfont">{{user.Designation}}</td>
                 </tr>
                 <tr class="tableRow" >
                     <td class="float-left p-1 textfont">
                         Account No
                     </td>
-                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont">{{users.accountNo}}</td>
+                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont">{{user.accountNo}}</td>
                     <td class="float-left p-1 textfont">
                         PF Account No
                     </td>
-                    <td class="text-right p-1 font-weight-bold tdtextfont">{{users.providentfundNo}}</td>
+                    <td class="text-right p-1 font-weight-bold tdtextfont">{{user.providentfundNo}}</td>
                 </tr>
                 <tr class="tableRow" >
                     <td class="float-left p-1 textfont">
                         Date Of Joining
                     </td>
-                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont">{{users.D_O_J}}</td>
+                    <td class="text-right border-right border-dark p-1 font-weight-bold tdtextfont">{{user.D_O_J}}</td>
                     <td class="float-left p-1 textfont">
                         No Of Days Worked
                     </td>
@@ -159,37 +159,37 @@
             <tbody>
                 <tr class="tableBodyRow" >
                     <td class="p-1 textfont ">Basic Pay</td>
-                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont ">{{users.basicPay}}</td>
+                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont ">{{user.basicPay}}</td>
                     <td class="p-1  textfont">TDS</td>
-                    <td class="p-1 font-weight-bold text-right tdtextfont">{{users.newTDS}}</td>
+                    <td class="p-1 font-weight-bold text-right tdtextfont">{{user.newTDS}}</td>
                 </tr>
                 <tr class="tableBodyRow" >
                     <td class="p-1 textfont">Dearness Allowances</td>
-                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{users.DA}}</td>
+                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{user.DA}}</td>
                     <td class="p-1 textfont">Provident Fund</td>
-                    <td class="p-1 font-weight-bold text-right tdtextfont">{{users.PF}}</td>
+                    <td class="p-1 font-weight-bold text-right tdtextfont">{{user.PF}}</td>
                 </tr>
                 <tr class="tableBodyRow" >
                     <td class="p-1 textfont">House Rent Allowances</td>
-                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{users.HRA}}</td>
+                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{user.HRA}}</td>
                     <td class="p-1 textfont">Professional Tax</td>
-                    <td class="p-1 font-weight-bold text-right tdtextfont">{{users.ProfessionalTax}}</td>
+                    <td class="p-1 font-weight-bold text-right tdtextfont">{{user.ProfessionalTax}}</td>
                 </tr>
                 <tr class="tableBodyRow" >
                     <td class="p-1 textfont">Special Allowances</td>
-                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{users.specialAllowance}}</td>
+                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">{{user.specialAllowance}}</td>
                 </tr>
                 <tr class="tableBodyLastRow" >
                     <td class="p-1 textfont">Total Earnings</td>
-                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont ">{{users.totalEarning}}</td>
+                    <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont ">{{user.totalEarning}}</td>
                     <td class="p-1 textfont">Total Deduction</td>
-                    <td class="p-1 font-weight-bold text-right tdtextfont">{{users.totalDeductions}}</td>
+                    <td class="p-1 font-weight-bold text-right tdtextfont">{{user.totalDeductions}}</td>
                 </tr>
                 <tr class="tableBodyLastRow">
                     <td class="p-1 textfont">Previous Balance</td>
                     <td class="p-1 font-weight-bold text-right border-right border-dark tdtextfont">0</td>
                     <td class="p-1 textfont">NetPay</td>
-                    <td class="p-1 font-weight-bold text-right tdtextfont">{{users.netPay}}</td>
+                    <td class="p-1 font-weight-bold text-right tdtextfont">{{user.netPay}}</td>
                 </tr>
                 <tr class="tableBodyLastRow" >
                     <td class="p-1 textfont">Carry Over Round-Off</td>
