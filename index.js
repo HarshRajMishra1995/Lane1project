@@ -17,7 +17,7 @@ app.use(express.static('public'))
 
 const payment=require('./paymentlogic')
 
-const options = {
+const pdfOptions = {
     format: "A4",
     orientation: "portrait",
     border: "1mm",
@@ -72,7 +72,7 @@ app.post('/response', urlencodedParser, (req, res) => {
     const netPay=payment.amountdata(totalPay)
     newTDS=payment.amountdata(newTDS)
 
-    let users =[
+    let user =
         {
             employeeName,
             employeeID,
@@ -94,18 +94,18 @@ app.post('/response', urlencodedParser, (req, res) => {
             netPay,
             host:process.env.URL
         }
-    ];
+    
     let pdfFilePath = `./output/Payslip-${employeeID}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
     // var tempFilePath=`/Users/tjs3/Documents/pdf_generator/output/Payslip-${empid}-${Math.floor(new Date().getTime() / 1000)}.pdf`;
     let document = {
         html: html,
         data: {
-            users
+            user
         },
         path: pdfFilePath,
         type: ""
     };
-    pdf.create(document, options)
+    pdf.create(document, pdfOptions)
         .then(() => {
             let files = fs.createReadStream(pdfFilePath);
             res.writeHead(200,
